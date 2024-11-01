@@ -36,7 +36,7 @@ class SnakeGameAI:
     
     def reset(self):
         self.direction = Direction.RIGHT
-        self.head = Point(w//2, h//2)
+        self.head = Point(self.w//2, self.h//2)
         self.snake = [Point(self.head.x, self.head.y),
                       Point(self.head.x - BLOCK_SIZE, self.head.y + BLOCK_SIZE), 
                       Point(self.head.x - BLOCK_SIZE*2, self.head.y + BLOCK_SIZE*2)]
@@ -85,6 +85,7 @@ class SnakeGameAI:
         # hits itself
         if pt in self.snake[1:]:
             return True
+        return False
 
     def update_ui(self):
         self.display.fill(BLACK)
@@ -99,7 +100,7 @@ class SnakeGameAI:
     def move(self, action):
         clockwise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
         idx = clockwise.index(self.direction)
-        new_dir = clockwise(idx)
+        new_dir = clockwise[idx]
         if np.array_equal(action, [1,0,0]):
             new_dir = clockwise[idx]
         elif np.array_equal(action, [0,1,0]):
